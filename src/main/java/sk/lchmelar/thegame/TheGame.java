@@ -22,7 +22,7 @@ public class TheGame {
 	}
 	
 	public void run() {
-		long fpsWait = (long) 20;
+		long fpsWait = (long) 10;
 		long lastUpdate = System.currentTimeMillis();
 		if(debugMode) debugLastUpdateDelta = lastUpdate;
 		while (isRunning) {

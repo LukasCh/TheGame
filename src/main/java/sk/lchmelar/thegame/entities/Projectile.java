@@ -26,6 +26,10 @@ public class Projectile extends GameEntity {
 		this.speedY = BigDecimal.valueOf(speedY);
 	}
 	
+	public Projectile() {
+		
+	}
+	
 	public void render(Graphics2D g, Viewport v) {
 		if (isVisibleToViewport(v)){
 			g.setColor(Color.RED);
@@ -34,12 +38,13 @@ public class Projectile extends GameEntity {
 	}
 
 	public void update(int delta) {
+		//System.out.println(delta);
 		x = x.add(speedX.multiply(BigDecimal.valueOf(delta / 1000.0)));
 		y = y.add(speedY.multiply(BigDecimal.valueOf(delta / 1000.0)));
 	
 		speedY = speedY.subtract(BigDecimal.valueOf(Constants.gravAcc * (delta / 1000.0)));
 		
-		speedX = speedX.subtract(BigDecimal.valueOf(speedX.signum() * getHeightInteger() * (delta / 1000.0)));
+		speedX = speedX.subtract(BigDecimal.valueOf(speedX.signum() * getHeightInteger()/10.0 * (delta / 1000.0)));
 	}
 
 	public BigDecimal getX() {
@@ -56,6 +61,38 @@ public class Projectile extends GameEntity {
 
 	public BigDecimal getHeight() {
 		return height;
+	}
+
+	public void setX(BigDecimal x) {
+		this.x = x;
+	}
+
+	public void setY(BigDecimal y) {
+		this.y = y;
+	}
+
+	public BigDecimal getSpeedX() {
+		return speedX;
+	}
+
+	public void setSpeedX(BigDecimal speedX) {
+		this.speedX = speedX;
+	}
+
+	public BigDecimal getSpeedY() {
+		return speedY;
+	}
+
+	public void setSpeedY(BigDecimal speedY) {
+		this.speedY = speedY;
+	}
+
+	public void setWidth(BigDecimal width) {
+		this.width = width;
+	}
+
+	public void setHeight(BigDecimal height) {
+		this.height = height;
 	}	
 
 }

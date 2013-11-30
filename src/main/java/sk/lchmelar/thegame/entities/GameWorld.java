@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import sk.lchmelar.thegame.config.Constants;
 import sk.lchmelar.thegame.graphics.Viewport;
 import sk.lchmelar.thegame.interfaces.GameEntity;
 
@@ -15,9 +16,13 @@ public class GameWorld extends GameEntity {
 	
 	private ArrayList<GameEntity> entities = new ArrayList<GameEntity>();
 	
+	private GameEntity localPlayer;
+	
 	public GameWorld () {
 		super();
 		entities.add(new Terrain());
+		localPlayer = new Actor(Constants.centerX, Constants.centerY, 20, 20);
+		entities.add(localPlayer);
 	}
 	
 	public void render(Graphics2D g, Viewport v) {
@@ -64,5 +69,9 @@ public class GameWorld extends GameEntity {
 		synchronized(entities){
 			entities.add(entity);
 		}
+	}
+
+	public GameEntity getLocalPlayer() {
+		return localPlayer;
 	}	
 }

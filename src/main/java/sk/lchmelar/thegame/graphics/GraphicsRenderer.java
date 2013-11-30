@@ -125,7 +125,7 @@ public class GraphicsRenderer extends Thread {
 
 	public void run() {
 		backgroundGraphics =  background.createGraphics();
-		long fpsWait = (long) (20);
+		long fpsWait = (long) 10;
 		long lastRender = System.currentTimeMillis();
 		if(TheGame.debugMode) debugLastRenderDelta = lastRender;
 		main: while (isRunning) {
@@ -182,6 +182,7 @@ public class GraphicsRenderer extends Thread {
 		result.put("isRunning", isRunning);
 		result.put("graphicsFPS", df.format(1000.0/debugLastRenderDelta));
 		result.put("physicsFPS", df.format(1000.0/TheGame.debugLastUpdateDelta));
+		result.put("entityCount", gameWorld.getEntities().size());
 		
 		return result;
 	}
