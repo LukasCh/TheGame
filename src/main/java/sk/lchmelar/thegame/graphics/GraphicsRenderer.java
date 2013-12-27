@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 import sk.lchmelar.thegame.TheGame;
 import sk.lchmelar.thegame.config.Constants;
 import sk.lchmelar.thegame.entities.GameWorld;
+import sk.lchmelar.thegame.input.GameInputListener;
 
 public class GraphicsRenderer extends Thread {
 	private boolean isRunning = true;
@@ -50,7 +51,7 @@ public class GraphicsRenderer extends Thread {
 	}
 
 	// Setup
-	public GraphicsRenderer(GameWorld gameWorld) {
+	public GraphicsRenderer(GameWorld gameWorld, GameInputListener gil) {
 		// JFrame
 		frame = new JFrame();
 		frame.addWindowListener(new FrameClose());	
@@ -65,10 +66,11 @@ public class GraphicsRenderer extends Thread {
 		frame.requestFocus();
 
 		// Canvas
-		canvas = new Canvas(config);
-		GameInputListener gil = new GameInputListener(this);
+		canvas = new Canvas(config);		
+		
 		canvas.addKeyListener(gil);
 		canvas.addMouseListener(gil);
+		canvas.addMouseMotionListener(gil);
 		
 		canvas.setSize(width, height);
 		frame.add(canvas, 0);
@@ -210,8 +212,4 @@ public class GraphicsRenderer extends Thread {
 	public void setViewport(Viewport viewport) {
 		this.viewport = viewport;
 	}
-
-	public GameWorld getGameWorld() {
-		return gameWorld;
-	}	
 }

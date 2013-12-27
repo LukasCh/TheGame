@@ -3,17 +3,20 @@ package sk.lchmelar.thegame;
 
 import sk.lchmelar.thegame.entities.GameWorld;
 import sk.lchmelar.thegame.graphics.GraphicsRenderer;
+import sk.lchmelar.thegame.input.GameInputListener;
+import sk.lchmelar.thegame.input.GameInputManager;
 
 public class TheGame {
 	public static boolean isRunning = true;
 	public static boolean debugMode = true;
 	public static long debugLastUpdateDelta;
 	private GameWorld gameWorld;
-	//private GraphicsRenderer graphicsRenderer;
+	private GraphicsRenderer graphicsRenderer;
+	private GameInputManager gameInputManager;
 	
 	public TheGame() {
 		gameWorld = new GameWorld();
-		new GraphicsRenderer(gameWorld);
+		graphicsRenderer = new GraphicsRenderer(gameWorld, new GameInputListener(gameInputManager = new GameInputManager(this)));
 	}
 	
 	public void updateGame(long delta) {
@@ -29,6 +32,7 @@ public class TheGame {
 			long delta = System.currentTimeMillis() - lastUpdate;  
 			if(debugMode) debugLastUpdateDelta = delta;
 			lastUpdate = System.currentTimeMillis();
+			gameInputManager.handleInput();
 			updateGame(delta);		
 			
 			long totalUpdateTime = System.currentTimeMillis() - lastUpdate;
@@ -39,5 +43,21 @@ public class TheGame {
 				break;
 			}
 		}		
+	}
+
+	public GameWorld getGameWorld() {
+		return gameWorld;
+	}
+
+	public void setGameWorld(GameWorld gameWorld) {
+		this.gameWorld = gameWorld;
+	}
+
+	public GraphicsRenderer getGraphicsRenderer() {
+		return graphicsRenderer;
+	}
+
+	public void setGraphicsRenderer(GraphicsRenderer graphicsRenderer) {
+		this.graphicsRenderer = graphicsRenderer;
 	}	
 }

@@ -52,14 +52,20 @@ public class Actor extends GameEntity {
 	
 	@Override
 	public void update(int delta) {
-		// TODO Auto-generated method stub
 		x = Math.round(x + speedX * delta / 1000.0f);
 		y = Math.round(y + speedY * delta / 1000.0f);
-	
-		//speedY = speedY.subtract(Integer.valueOf(Constants.gravAcc * (delta / 1000.0)));
-		
-		speedX = Math.round(speedX - Integer.signum(speedX) * getHeight() * delta / 1000.0f);
-		speedY = Math.round(speedY - Integer.signum(speedY) * getWidth() * delta / 1000.0f);
+		int speedXReduction = Math.round(Integer.signum(speedX) * getHeight() * 3.5f * delta / 1000.0f);
+		if(Integer.signum(speedXReduction) == Integer.signum(speedX-speedXReduction)) {
+			changeSpeedX(-speedXReduction); 
+		} else {
+			speedX = 0;
+		}
+		int speedYReduction = Math.round(Integer.signum(speedY) * getWidth() * 3.5f * delta / 1000.0f);
+		if(Integer.signum(speedYReduction) == Integer.signum(speedY-speedYReduction)) {
+			changeSpeedY(-speedYReduction);
+		} else {
+			speedY = 0;
+		}
 	}
 	
 	public Projectile shoot(Integer targetX, Integer targetY) {
