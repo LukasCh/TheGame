@@ -1,6 +1,5 @@
 package sk.lchmelar.thegame;
 
-
 import sk.lchmelar.thegame.entities.GameWorld;
 import sk.lchmelar.thegame.graphics.GraphicsRenderer;
 import sk.lchmelar.thegame.input.GameInputListener;
@@ -13,28 +12,30 @@ public class TheGame {
 	private GameWorld gameWorld;
 	private GraphicsRenderer graphicsRenderer;
 	private GameInputManager gameInputManager;
-	
+
 	public TheGame() {
 		gameWorld = new GameWorld();
 		graphicsRenderer = new GraphicsRenderer(gameWorld, new GameInputListener(gameInputManager = new GameInputManager(this)));
 	}
-	
+
 	public void updateGame(long delta) {
-		//if(debugMode) System.out.println(delta);
+		// if(debugMode) System.out.println(delta);
 		gameWorld.update((int) delta);
 	}
-	
+
 	public void run() {
 		long fpsWait = (long) 10;
 		long lastUpdate = System.currentTimeMillis();
-		if(debugMode) debugLastUpdateDelta = lastUpdate;
+		if (debugMode)
+			debugLastUpdateDelta = lastUpdate;
 		while (isRunning) {
-			long delta = System.currentTimeMillis() - lastUpdate;  
-			if(debugMode) debugLastUpdateDelta = delta;
+			long delta = System.currentTimeMillis() - lastUpdate;
+			if (debugMode)
+				debugLastUpdateDelta = delta;
 			lastUpdate = System.currentTimeMillis();
 			gameInputManager.handleInput();
-			updateGame(delta);		
-			
+			updateGame(delta);
+
 			long totalUpdateTime = System.currentTimeMillis() - lastUpdate;
 			try {
 				Thread.sleep(Math.max(0, fpsWait - totalUpdateTime));
@@ -42,7 +43,7 @@ public class TheGame {
 				Thread.interrupted();
 				break;
 			}
-		}		
+		}
 	}
 
 	public GameWorld getGameWorld() {
@@ -59,5 +60,5 @@ public class TheGame {
 
 	public void setGraphicsRenderer(GraphicsRenderer graphicsRenderer) {
 		this.graphicsRenderer = graphicsRenderer;
-	}	
+	}
 }

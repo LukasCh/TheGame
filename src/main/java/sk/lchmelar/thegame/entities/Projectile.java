@@ -14,7 +14,7 @@ public class Projectile extends GameEntity {
 	private Integer height;
 	private Integer speedX;
 	private Integer speedY;
-		
+
 	public Projectile(Integer x, Integer y, Integer speedX, Integer speedY, Integer width, Integer height) {
 		super();
 		this.x = Integer.valueOf(x);
@@ -24,34 +24,34 @@ public class Projectile extends GameEntity {
 		this.speedX = Integer.valueOf(speedX);
 		this.speedY = Integer.valueOf(speedY);
 	}
-	
+
 	public Projectile() {
-		
+
 	}
-	
+
 	public void render(Graphics2D g, Viewport v) {
-		if (isVisibleToViewport(v)){
+		if (isVisibleToViewport(v)) {
 			g.setColor(Color.RED);
 			g.fillOval(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
 		}
 	}
 
 	public void update(int delta) {
-		//System.out.println(delta);
+		// System.out.println(delta);
 		x = Math.round(x + speedX * delta / 1000.0f);
 		y = Math.round(y + speedY * delta / 1000.0f);
-		
+
 		speedY = Math.round(speedY - Constants.gravAcc * delta / 1000.0f);
-		
-		speedX = Math.round(speedX - Integer.signum(speedX) * getHeight() /10.0f * (delta / 1000.0f));		
+
+		speedX = Math.round(speedX - Integer.signum(speedX) * getHeight() / 10.0f * (delta / 1000.0f));
 	}
 
 	public Integer getX() {
-		return x;	
-	}	
-	
+		return x;
+	}
+
 	public Integer getY() {
-		return y;	
+		return y;
 	}
 
 	public Integer getWidth() {
@@ -92,14 +92,14 @@ public class Projectile extends GameEntity {
 
 	public void setHeight(Integer height) {
 		this.height = height;
-	}	
-	
+	}
+
 	public Integer getSpeedLimitX() {
 		return null;
 	}
 
 	public Integer getSpeedLimitY() {
 		return null;
-	}	
+	}
 
 }

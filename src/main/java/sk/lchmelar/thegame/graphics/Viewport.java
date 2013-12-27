@@ -5,7 +5,7 @@ public class Viewport {
 	private int y;
 	private int width;
 	private int height;
-	
+
 	public Viewport(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
@@ -43,8 +43,8 @@ public class Viewport {
 
 	public void setHeight(int height) {
 		this.height = height;
-	}	
-	
+	}
+
 	public String toString() {
 		return "{x = " + x + ", y = " + y + ", width = " + width + ", height = " + height + "}";
 	}

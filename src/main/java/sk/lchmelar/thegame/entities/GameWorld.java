@@ -12,40 +12,40 @@ public class GameWorld extends GameEntity {
 	private Integer y;
 	private Integer width;
 	private Integer height;
-	
+
 	private ArrayList<GameEntity> entities = new ArrayList<GameEntity>();
-	
+
 	private GameEntity localPlayer;
-	
-	public GameWorld () {
+
+	public GameWorld() {
 		super();
 		entities.add(new Terrain());
-		localPlayer = new Actor(Constants.centerX, Constants.centerY, 20*Constants.precision, 20*Constants.precision);
+		localPlayer = new Actor(Constants.centerX, Constants.centerY, 20 * Constants.precision, 20 * Constants.precision);
 		entities.add(localPlayer);
 	}
-	
+
 	public void render(Graphics2D g, Viewport v) {
-		synchronized(entities){
-			for(GameEntity entity: entities) {
+		synchronized (entities) {
+			for (GameEntity entity : entities) {
 				entity.render(g, v);
-			}		
+			}
 		}
 	}
 
 	public void update(int delta) {
-		synchronized(entities){
-			for(GameEntity entity: entities) {
+		synchronized (entities) {
+			for (GameEntity entity : entities) {
 				entity.update(delta);
 			}
 		}
 	}
 
 	public Integer getX() {
-		return x;	
-	}	
-	
+		return x;
+	}
+
 	public Integer getY() {
-		return y;	
+		return y;
 	}
 
 	public Integer getWidth() {
@@ -62,10 +62,10 @@ public class GameWorld extends GameEntity {
 
 	public void setEntities(ArrayList<GameEntity> entities) {
 		this.entities = entities;
-	}	
-	
+	}
+
 	public void addEntity(GameEntity entity) {
-		synchronized(entities){
+		synchronized (entities) {
 			entities.add(entity);
 		}
 	}
@@ -80,13 +80,13 @@ public class GameWorld extends GameEntity {
 
 	public Integer getSpeedY() {
 		return null;
-	}	
-	
+	}
+
 	public Integer getSpeedLimitX() {
 		return null;
 	}
 
 	public Integer getSpeedLimitY() {
 		return null;
-	}	
+	}
 }

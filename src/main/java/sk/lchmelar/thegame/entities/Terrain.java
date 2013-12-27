@@ -12,32 +12,32 @@ public class Terrain extends GameEntity {
 	private Integer y;
 	private Integer width;
 	private Integer height;
-		
+
 	public Terrain() {
 		super();
 		this.x = Integer.valueOf(Constants.centerX);
-		this.y = Integer.valueOf(Constants.centerY + Constants.centerY/2);
+		this.y = Integer.valueOf(Constants.centerY + Constants.centerY / 2);
 		this.width = Integer.valueOf(Constants.centerX * 2);
 		this.height = Integer.valueOf(Constants.centerY);
 	}
-	
+
 	public void render(Graphics2D g, Viewport v) {
-		if (isVisibleToViewport(v)){
+		if (isVisibleToViewport(v)) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
 		}
 	}
 
 	public void update(int delta) {
-		
+
 	}
 
 	public Integer getX() {
-		return x;	
-	}	
-	
+		return x;
+	}
+
 	public Integer getY() {
-		return y;	
+		return y;
 	}
 
 	public Integer getWidth() {
@@ -54,13 +54,13 @@ public class Terrain extends GameEntity {
 
 	public Integer getSpeedY() {
 		return null;
-	}	
-	
+	}
+
 	public Integer getSpeedLimitX() {
 		return null;
 	}
 
 	public Integer getSpeedLimitY() {
 		return null;
-	}	
+	}
 }
