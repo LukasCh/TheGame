@@ -2,28 +2,27 @@ package sk.lchmelar.thegame.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.math.BigDecimal;
 
 import sk.lchmelar.thegame.config.Constants;
 import sk.lchmelar.thegame.graphics.Viewport;
 import sk.lchmelar.thegame.interfaces.GameEntity;
 
 public class Projectile extends GameEntity {
-	private BigDecimal x;
-	private BigDecimal y;
-	private BigDecimal width;
-	private BigDecimal height;
-	private BigDecimal speedX;
-	private BigDecimal speedY;
+	private Integer x;
+	private Integer y;
+	private Integer width;
+	private Integer height;
+	private Integer speedX;
+	private Integer speedY;
 		
 	public Projectile(Integer x, Integer y, Integer speedX, Integer speedY, Integer width, Integer height) {
 		super();
-		this.x = BigDecimal.valueOf(x);
-		this.y = BigDecimal.valueOf(y);
-		this.width = BigDecimal.valueOf(width);
-		this.height = BigDecimal.valueOf(height);
-		this.speedX = BigDecimal.valueOf(speedX);
-		this.speedY = BigDecimal.valueOf(speedY);
+		this.x = Integer.valueOf(x);
+		this.y = Integer.valueOf(y);
+		this.width = Integer.valueOf(width);
+		this.height = Integer.valueOf(height);
+		this.speedX = Integer.valueOf(speedX);
+		this.speedY = Integer.valueOf(speedY);
 	}
 	
 	public Projectile() {
@@ -33,66 +32,74 @@ public class Projectile extends GameEntity {
 	public void render(Graphics2D g, Viewport v) {
 		if (isVisibleToViewport(v)){
 			g.setColor(Color.RED);
-			g.fillOval(getGraphicsX(v), getGraphicsY(v), getWidthInteger(), getHeightInteger());
+			g.fillOval(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
 		}
 	}
 
 	public void update(int delta) {
 		//System.out.println(delta);
-		x = x.add(speedX.multiply(BigDecimal.valueOf(delta / 1000.0)));
-		y = y.add(speedY.multiply(BigDecimal.valueOf(delta / 1000.0)));
-	
-		speedY = speedY.subtract(BigDecimal.valueOf(Constants.gravAcc * (delta / 1000.0)));
+		x = Math.round(x + speedX * delta / 1000.0f);
+		y = Math.round(y + speedY * delta / 1000.0f);
 		
-		speedX = speedX.subtract(BigDecimal.valueOf(speedX.signum() * getHeightInteger()/10.0 * (delta / 1000.0)));
+		speedY = Math.round(speedY - Constants.gravAcc * delta / 1000.0f);
+		
+		speedX = Math.round(speedX - Integer.signum(speedX) * getHeight() /10.0f * (delta / 1000.0f));		
 	}
 
-	public BigDecimal getX() {
+	public Integer getX() {
 		return x;	
 	}	
 	
-	public BigDecimal getY() {
+	public Integer getY() {
 		return y;	
 	}
 
-	public BigDecimal getWidth() {
+	public Integer getWidth() {
 		return width;
 	}
 
-	public BigDecimal getHeight() {
+	public Integer getHeight() {
 		return height;
 	}
 
-	public void setX(BigDecimal x) {
+	public void setX(Integer x) {
 		this.x = x;
 	}
 
-	public void setY(BigDecimal y) {
+	public void setY(Integer y) {
 		this.y = y;
 	}
 
-	public BigDecimal getSpeedX() {
+	public Integer getSpeedX() {
 		return speedX;
 	}
 
-	public void setSpeedX(BigDecimal speedX) {
+	public void setSpeedX(Integer speedX) {
 		this.speedX = speedX;
 	}
 
-	public BigDecimal getSpeedY() {
+	public Integer getSpeedY() {
 		return speedY;
 	}
 
-	public void setSpeedY(BigDecimal speedY) {
+	public void setSpeedY(Integer speedY) {
 		this.speedY = speedY;
 	}
 
-	public void setWidth(BigDecimal width) {
+	public void setWidth(Integer width) {
 		this.width = width;
 	}
 
-	public void setHeight(BigDecimal height) {
+	public void setHeight(Integer height) {
 		this.height = height;
+	}	
+	
+	public Integer getSpeedLimitX() {
+		return null;
+	}
+
+	public Integer getSpeedLimitY() {
+		return null;
 	}	
 
 }

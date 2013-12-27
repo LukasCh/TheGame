@@ -2,30 +2,29 @@ package sk.lchmelar.thegame.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.math.BigDecimal;
 
 import sk.lchmelar.thegame.config.Constants;
 import sk.lchmelar.thegame.graphics.Viewport;
 import sk.lchmelar.thegame.interfaces.GameEntity;
 
 public class Terrain extends GameEntity {
-	private BigDecimal x;
-	private BigDecimal y;
-	private BigDecimal width;
-	private BigDecimal height;
+	private Integer x;
+	private Integer y;
+	private Integer width;
+	private Integer height;
 		
 	public Terrain() {
 		super();
-		this.x = BigDecimal.valueOf(Constants.centerX);
-		this.y = BigDecimal.valueOf(Constants.centerY + Constants.centerY/2);
-		this.width = BigDecimal.valueOf(Constants.centerX * 2);
-		this.height = BigDecimal.valueOf(Constants.centerY);
+		this.x = Integer.valueOf(Constants.centerX);
+		this.y = Integer.valueOf(Constants.centerY + Constants.centerY/2);
+		this.width = Integer.valueOf(Constants.centerX * 2);
+		this.height = Integer.valueOf(Constants.centerY);
 	}
 	
 	public void render(Graphics2D g, Viewport v) {
 		if (isVisibleToViewport(v)){
 			g.setColor(Color.LIGHT_GRAY);
-			g.fillRect(getGraphicsX(v), getGraphicsY(v), getWidthInteger(), getHeightInteger());
+			g.fillRect(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
 		}
 	}
 
@@ -33,19 +32,35 @@ public class Terrain extends GameEntity {
 		
 	}
 
-	public BigDecimal getX() {
+	public Integer getX() {
 		return x;	
 	}	
 	
-	public BigDecimal getY() {
+	public Integer getY() {
 		return y;	
 	}
 
-	public BigDecimal getWidth() {
+	public Integer getWidth() {
 		return width;
 	}
 
-	public BigDecimal getHeight() {
+	public Integer getHeight() {
 		return height;
+	}
+
+	public Integer getSpeedX() {
+		return null;
+	}
+
+	public Integer getSpeedY() {
+		return null;
+	}	
+	
+	public Integer getSpeedLimitX() {
+		return null;
+	}
+
+	public Integer getSpeedLimitY() {
+		return null;
 	}	
 }

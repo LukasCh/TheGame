@@ -1,7 +1,6 @@
 package sk.lchmelar.thegame.entities;
 
 import java.awt.Graphics2D;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import sk.lchmelar.thegame.config.Constants;
@@ -9,10 +8,10 @@ import sk.lchmelar.thegame.graphics.Viewport;
 import sk.lchmelar.thegame.interfaces.GameEntity;
 
 public class GameWorld extends GameEntity {
-	private BigDecimal x;
-	private BigDecimal y;
-	private BigDecimal width;
-	private BigDecimal height;
+	private Integer x;
+	private Integer y;
+	private Integer width;
+	private Integer height;
 	
 	private ArrayList<GameEntity> entities = new ArrayList<GameEntity>();
 	
@@ -21,7 +20,7 @@ public class GameWorld extends GameEntity {
 	public GameWorld () {
 		super();
 		entities.add(new Terrain());
-		localPlayer = new Actor(Constants.centerX, Constants.centerY, 20, 20);
+		localPlayer = new Actor(Constants.centerX, Constants.centerY, 20*Constants.precision, 20*Constants.precision);
 		entities.add(localPlayer);
 	}
 	
@@ -41,19 +40,19 @@ public class GameWorld extends GameEntity {
 		}
 	}
 
-	public BigDecimal getX() {
+	public Integer getX() {
 		return x;	
 	}	
 	
-	public BigDecimal getY() {
+	public Integer getY() {
 		return y;	
 	}
 
-	public BigDecimal getWidth() {
+	public Integer getWidth() {
 		return width;
 	}
 
-	public BigDecimal getHeight() {
+	public Integer getHeight() {
 		return height;
 	}
 
@@ -73,5 +72,21 @@ public class GameWorld extends GameEntity {
 
 	public GameEntity getLocalPlayer() {
 		return localPlayer;
+	}
+
+	public Integer getSpeedX() {
+		return null;
+	}
+
+	public Integer getSpeedY() {
+		return null;
+	}	
+	
+	public Integer getSpeedLimitX() {
+		return null;
+	}
+
+	public Integer getSpeedLimitY() {
+		return null;
 	}	
 }

@@ -4,11 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.math.BigDecimal;
 
 import sk.lchmelar.thegame.config.Constants;
 import sk.lchmelar.thegame.entities.Actor;
-import sk.lchmelar.thegame.entities.Projectile;
 
 public class GameInputListener implements KeyListener, MouseListener {
 	private GraphicsRenderer graphicsRenderer;
@@ -52,16 +50,16 @@ public class GameInputListener implements KeyListener, MouseListener {
 		
 		if(arg0.getKeyCode() == KeyEvent.VK_W) {
 			//System.out.println("D");
-			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedY(BigDecimal.valueOf(-1));
+			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedY(-10000);
 		}
 		if(arg0.getKeyCode() == KeyEvent.VK_S) {
-			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedY(BigDecimal.valueOf(1));			
+			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedY(10000);			
 		}
 		if(arg0.getKeyCode() == KeyEvent.VK_A) {
-			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedX(BigDecimal.valueOf(-1));
+			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedX(-10000);
 		}
 		if(arg0.getKeyCode() == KeyEvent.VK_D) {
-			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedX(BigDecimal.valueOf(1));
+			((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).changeSpeedX(10000);
 		}
 	}
 
@@ -90,7 +88,9 @@ public class GameInputListener implements KeyListener, MouseListener {
 
 	public void mousePressed(MouseEvent e) {
 		//System.out.println("pressed");
-		graphicsRenderer.getGameWorld().addEntity(((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).shoot(graphicsRenderer.getViewport().getX() + e.getX(), graphicsRenderer.getViewport().getY() + e.getY()));
+		//for (int i = 0; i < 50; i++) {
+			graphicsRenderer.getGameWorld().addEntity(((Actor)graphicsRenderer.getGameWorld().getLocalPlayer()).shoot(graphicsRenderer.getViewport().getX() + e.getX(), graphicsRenderer.getViewport().getY() + e.getY()));
+		//}
 		lastPressedX = e.getX();
 		lastPressedY = e.getY();		
 	}
@@ -98,11 +98,6 @@ public class GameInputListener implements KeyListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		//System.out.println("released");
 		lastReleasedX = e.getX();
-		lastReleasedY = e.getY();		
-		
-		/*for (int i = 0; i < 10; i++) {
-			graphicsRenderer.getGameWorld().addEntity(new Projectile(graphicsRenderer.getViewport().getX() + lastPressedX, graphicsRenderer.getViewport().getY() + lastPressedY + i*3, (lastReleasedX - lastPressedX)*2, (lastReleasedY - lastPressedY)*2, 3*e.getButton(), 3*e.getButton()));
-		}*/
-		
+		lastReleasedY = e.getY();			
 	}
 }

@@ -26,21 +26,18 @@ public class TheGame {
 		long lastUpdate = System.currentTimeMillis();
 		if(debugMode) debugLastUpdateDelta = lastUpdate;
 		while (isRunning) {
-			long updateStart = System.nanoTime();
 			long delta = System.currentTimeMillis() - lastUpdate;  
-			updateGame(delta);
-			lastUpdate = System.currentTimeMillis();			
 			if(debugMode) debugLastUpdateDelta = delta;
+			lastUpdate = System.currentTimeMillis();
+			updateGame(delta);		
 			
-			
-			long renderTime = (System.nanoTime() - updateStart) / 1000000;
+			long totalUpdateTime = System.currentTimeMillis() - lastUpdate;
 			try {
-				Thread.sleep(Math.max(0, fpsWait - renderTime));
+				Thread.sleep(Math.max(0, fpsWait - totalUpdateTime));
 			} catch (InterruptedException e) {
 				Thread.interrupted();
 				break;
 			}
-			renderTime = (System.nanoTime() - updateStart) / 1000000;
 		}		
 	}	
 }

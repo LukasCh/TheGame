@@ -83,7 +83,7 @@ public class GraphicsRenderer extends Thread {
 		// Game Logic related stuff
 		this.gameWorld = gameWorld;
 		
-		viewport = new Viewport(Constants.centerX - width/2, Constants.centerY - height/2, width, height);
+		viewport = new Viewport(Constants.centerX/Constants.precision - width/2, Constants.centerY/Constants.precision - height/2, width, height);
 		
 		start();
 	}
@@ -128,9 +128,7 @@ public class GraphicsRenderer extends Thread {
 		long fpsWait = (long) 10;
 		long lastRender = System.currentTimeMillis();
 		if(TheGame.debugMode) debugLastRenderDelta = lastRender;
-		main: while (isRunning) {
-			long renderStart = System.nanoTime();
-			
+		main: while (isRunning) {			
 			// Update Graphics
 			do {
 				Graphics2D bg = getBuffer();
@@ -138,9 +136,11 @@ public class GraphicsRenderer extends Thread {
 					break main;
 				}
 				long delta = System.currentTimeMillis() - lastRender;  
-				renderGame(backgroundGraphics, viewport); 
-				lastRender = System.currentTimeMillis();					
 				if(TheGame.debugMode) debugLastRenderDelta = delta;
+				lastRender = System.currentTimeMillis();			
+				renderGame(backgroundGraphics, viewport); 
+						
+				
 				
 				/*if (scale != 1) {
 					bg.drawImage(background, cameraX.intValue(), cameraY.intValue(), width * scale, height * scale, 0, 0, width, height, null);
@@ -152,15 +152,13 @@ public class GraphicsRenderer extends Thread {
 			} while (!updateScreen());
 
 			// Better do some FPS limiting here
-			long renderTime = (System.nanoTime() - renderStart) / 1000000;
+			long totalRenderTime = System.currentTimeMillis() - lastRender;
 			try {
-				Thread.sleep(Math.max(0, fpsWait - renderTime));
+				Thread.sleep(Math.max(0, fpsWait - totalRenderTime));
 			} catch (InterruptedException e) {
 				Thread.interrupted();
 				break;
 			}
-			renderTime = (System.nanoTime() - renderStart) / 1000000;
-
 		}
 		frame.dispose();
 	}
@@ -181,8 +179,11 @@ public class GraphicsRenderer extends Thread {
 		result.put("viewport", viewport);
 		result.put("isRunning", isRunning);
 		result.put("graphicsFPS", df.format(1000.0/debugLastRenderDelta));
+		//System.out.println(debugLastRenderDelta);
 		result.put("physicsFPS", df.format(1000.0/TheGame.debugLastUpdateDelta));
+		//System.out.println(TheGame.debugLastUpdateDelta);
 		result.put("entityCount", gameWorld.getEntities().size());
+		result.put("playerSpeed", gameWorld.getEntities().get(1).getSpeedX() + "," + gameWorld.getEntities().get(1).getSpeedY());
 		
 		return result;
 	}
