@@ -26,11 +26,13 @@ public class Actor extends GameEntity {
 	}
 
 	@Override
-	public void render(Graphics2D g, Viewport v) {
+	public boolean render(Graphics2D g, Viewport v) {
 		if (isVisibleToViewport(v)) {
 			g.setColor(Color.BLUE);
 			g.fillRect(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
+			return true;
 		}
+		return false;
 	}
 
 	public void changeSpeedX(Integer value) {

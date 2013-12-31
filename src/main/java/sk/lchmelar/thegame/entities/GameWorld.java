@@ -12,6 +12,7 @@ public class GameWorld extends GameEntity {
 	private Integer y;
 	private Integer width;
 	private Integer height;
+	private int visibleEntities;
 
 	private ArrayList<GameEntity> entities = new ArrayList<GameEntity>();
 
@@ -24,11 +25,13 @@ public class GameWorld extends GameEntity {
 		entities.add(localPlayer);
 	}
 
-	public void render(Graphics2D g, Viewport v) {
+	public boolean render(Graphics2D g, Viewport v) {
 		synchronized (entities) {
+			visibleEntities = 0;
 			for (GameEntity entity : entities) {
-				entity.render(g, v);
+				if(entity.render(g, v)) visibleEntities++;
 			}
+			return true;
 		}
 	}
 
@@ -88,5 +91,9 @@ public class GameWorld extends GameEntity {
 
 	public Integer getSpeedLimitY() {
 		return null;
+	}
+
+	public int getVisibleEntities() {
+		return visibleEntities;
 	}
 }

@@ -21,11 +21,13 @@ public class Terrain extends GameEntity {
 		this.height = Integer.valueOf(Constants.centerY);
 	}
 
-	public void render(Graphics2D g, Viewport v) {
+	public boolean render(Graphics2D g, Viewport v) {
 		if (isVisibleToViewport(v)) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
+			return true;
 		}
+		return false;
 	}
 
 	public void update(int delta) {

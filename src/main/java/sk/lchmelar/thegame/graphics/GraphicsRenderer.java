@@ -61,8 +61,6 @@ public class GraphicsRenderer extends Thread {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
-		frame.setFocusable(true);
-		frame.requestFocus();
 
 		// Canvas
 		canvas = new Canvas(config);
@@ -72,6 +70,8 @@ public class GraphicsRenderer extends Thread {
 		canvas.addMouseMotionListener(gil);
 
 		canvas.setSize(width, height);
+		canvas.setFocusable(true);
+		canvas.requestFocus();
 		frame.add(canvas, 0);
 
 		// Background & Buffer
@@ -185,7 +185,7 @@ public class GraphicsRenderer extends Thread {
 		// System.out.println(debugLastRenderDelta);
 		result.put("physicsFPS", df.format(1000.0 / TheGame.debugLastUpdateDelta));
 		// System.out.println(TheGame.debugLastUpdateDelta);
-		result.put("entityCount", gameWorld.getEntities().size());
+		result.put("entityCount", gameWorld.getEntities().size() + "(" + gameWorld.getVisibleEntities() + ")");
 		result.put("playerSpeed", gameWorld.getEntities().get(1).getSpeedX() + "," + gameWorld.getEntities().get(1).getSpeedY());
 
 		return result;

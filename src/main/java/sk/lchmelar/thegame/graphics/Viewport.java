@@ -1,16 +1,20 @@
 package sk.lchmelar.thegame.graphics;
 
+import java.awt.Rectangle;
+
 public class Viewport {
 	private int x;
 	private int y;
 	private int width;
 	private int height;
-
+	private Rectangle rectangle;
+	
 	public Viewport(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.rectangle = new Rectangle(0, 0, width, height);
 	}
 
 	public int getX() {
@@ -48,4 +52,9 @@ public class Viewport {
 	public String toString() {
 		return "{x = " + x + ", y = " + y + ", width = " + width + ", height = " + height + "}";
 	}
+
+	public Rectangle getRectangle() {
+		return rectangle;
+	}
+	
 }

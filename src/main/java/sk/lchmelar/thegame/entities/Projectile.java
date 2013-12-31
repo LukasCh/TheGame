@@ -29,11 +29,13 @@ public class Projectile extends GameEntity {
 
 	}
 
-	public void render(Graphics2D g, Viewport v) {
+	public boolean render(Graphics2D g, Viewport v) {
 		if (isVisibleToViewport(v)) {
 			g.setColor(Color.RED);
 			g.fillOval(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
+			return true;
 		}
+		return false;
 	}
 
 	public void update(int delta) {

@@ -1,12 +1,13 @@
 package sk.lchmelar.thegame.interfaces;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import sk.lchmelar.thegame.config.Constants;
 import sk.lchmelar.thegame.graphics.Viewport;
 
 public abstract class GameEntity {
-	public abstract void render(Graphics2D g, Viewport v);
+	public abstract boolean render(Graphics2D g, Viewport v);
 
 	public abstract void update(int delta);
 
@@ -26,13 +27,10 @@ public abstract class GameEntity {
 
 	public abstract Integer getSpeedLimitY();
 
-	protected boolean isVisibleToViewport(Viewport v) {
-		if (this.getGraphicsX(v) - this.getGraphicsWidth() / 2 >= v.getX() || this.getGraphicsX(v) + this.getGraphicsWidth() / 2 <= v.getX() + v.getWidth()
-				|| this.getGraphicsY(v) - this.getGraphicsHeight() / 2 >= v.getY()
-				|| this.getGraphicsY(v) + this.getGraphicsHeight() / 2 <= v.getY() + v.getHeight()) {
+	protected boolean isVisibleToViewport(Viewport v) {		
+		if (this.getGraphicsRectangle(v).intersects(v.getRectangle())) {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -50,5 +48,9 @@ public abstract class GameEntity {
 
 	protected Integer getGraphicsHeight() {
 		return Math.round(getHeight() / Constants.precisionFloat);
+	}
+	
+	protected Rectangle getGraphicsRectangle(Viewport v) {
+		return new Rectangle(getGraphicsX(v), getGraphicsY(v), getGraphicsWidth(), getGraphicsHeight());
 	}
 }
